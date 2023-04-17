@@ -47,7 +47,8 @@ class HomeController extends Controller
             'query' => request()->query(),
         ]);
         $prf = Auth::User();
-        return view('market', ['cry' => $paginatedData, 'prf' => $prf]);
+        $lasttrade = $this->getLastTrade($prf->id);
+        return view('market', ['cry' => $paginatedData, 'prf' => $prf,'lasttrade'=>$lasttrade]);
     }
     public function index()
     {
@@ -57,7 +58,8 @@ class HomeController extends Controller
     public function trade()
     {
         $prf = Auth::User();
-        return view('trade', compact('prf'));
+        $lasttrade = $this->getLastTrade($prf->id);
+        return view('trade', compact('prf','lasttrade'));
     }
 
     public function conftrade(Request $request)
@@ -169,6 +171,10 @@ class HomeController extends Controller
         }
     }
 
+    private function getLastTrade($userId) {
+        return DB::table('trades')->where('id_client', $userId)->latest()->first();
+    }
+
     public function tradeshist()
     {
         $prf = Auth::User();
@@ -176,7 +182,7 @@ class HomeController extends Controller
             ->where('id_client', $prf->id)
             ->get();
 
-            $lasttrade = DB::table('trades')->where('id_client',$prf->id)->latest()->first();
+            $lasttrade = $this->getLastTrade($prf->id);
 
         return view('tradeshist', compact('data', 'prf','lasttrade'));
     }
@@ -187,8 +193,8 @@ class HomeController extends Controller
         $hist = DB::table('transactions')
             ->where('id_user', $prf->id)
             ->get();
-
-        return view('funds', compact('prf', 'hist'));
+            $lasttrade = $this->getLastTrade($prf->id);
+        return view('funds', compact('prf', 'hist','lasttrade'));
     }
 
     public function profile()
@@ -202,8 +208,8 @@ class HomeController extends Controller
             ->get();
 
         $count = $data->count();
-
-        return view('profile', compact('data', 'count', 'prf', 'invited'));
+        $lasttrade = $this->getLastTrade($prf->id);
+        return view('profile', compact('data', 'count', 'prf', 'invited','lasttrade'));
     }
 
     public function verify(Request $request)

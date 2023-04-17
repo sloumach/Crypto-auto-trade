@@ -14,7 +14,7 @@
                 <!-- row -->
                 <div class="container">
                     <div class="row">
-                       @include('topbody')
+                       @include('topbody',['lasttrade' => $lasttrade,  'prf'=>$prf])
 
                         <!-- /# column -->
                     </div>

@@ -18,7 +18,7 @@
             <!-- row -->
             <div class="container-fluid">
                 <div class="row">
-                    @include('topbody')
+                    @include('topbody',['lasttrade' => $lasttrade,  'prf'=>$prf])
 
                     <div class="col-lg-12">
                         <div class="card">
