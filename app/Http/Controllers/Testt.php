@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use DB;
 
 class Testt extends Controller
@@ -11,7 +9,6 @@ class Testt extends Controller
     //
     public function testt()
     {
-
 
         // DD(Hash::make('test'));
         $usersWithTrades = DB::table('users')
@@ -45,15 +42,14 @@ class Testt extends Controller
                     'status' => '1',
                     'income' => $rate,
                 ]);
-                if ($conftrade) {
-                    echo('<br>update trade status et income done');
-                }
-                else {
-                    echo('<br>update status et income done');
-                }
+            if ($conftrade) {
+                echo ('<br>update trade status et income done');
+            } else {
+                echo ('<br>update status et income done');
+            }
 
-            $prof = $somme +$trrd->range_trade;
-            $tst=   ($trrd->range_trade * $rate) / 100;
+            $prof = $somme + $trrd->range_trade;
+            $tst = ($trrd->range_trade * $rate) / 100;
             $profit = $prof + $tst;
 
             $trd = DB::table('users')
@@ -61,25 +57,23 @@ class Testt extends Controller
 
                 ->update([
                     'somme' => $profit,
-                    'daily_trade'=>'1'
+                    'daily_trade' => '1',
 
                 ]);
 
-                $conftrade2 = DB::table('trades')
+
+            $conftrade2 = DB::table('trades')
                 ->where('id_client', $id)
-                ->latest()->first()
+                ->latest()->first();
+                $conftrade3 = DB::table('trades')
+                ->where('id', $conftrade2->id)
+                ->update(['profit' => $tst]);
 
-                ->update([
-                    'profit' => $tst,
-
-                ]);
-
-                if ($trd) {
-                    echo('<br>client somme done');
-                }
-                else {
-                    echo('<br>client somme not done yet');
-                }
+            if ($trd) {
+                echo ('<br>client somme done');
+            } else {
+                echo ('<br>client somme not done yet');
+            }
         }
 
         // DD($data);
