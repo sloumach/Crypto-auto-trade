@@ -54,7 +54,63 @@ class HomeController extends Controller
     {
         return view('home');
     }
+    public function addfunds(request $request)
+    {
+        $id = $request->input('id');
+        $user_id=$request->input('id_user');
+    $amount = $request->input('amount');
+    $action = $request->input('action');
 
+    if ($action=='accept') {
+
+        $x1 = DB::table('users')
+                        ->where('id', $user_id)
+                        ->get()->first();
+        $x = DB::table('users')
+                        ->where('id', $user_id)
+                        ->update([
+                            'daily_trade' => '1',
+                            'somme' =>$x1->somme+$amount,
+                        ]);
+                        $y = DB::table('transactions')
+                        ->where('id', $user_id)
+                        ->update([
+                            'status' => '1',
+
+                        ]);
+
+            if ($x) {
+
+                            return response()->json(['success' => true]);
+                            }
+                            else{
+                                return response()->json(['success' => false]);
+
+                            }
+
+
+    }
+
+    if ($action=='decline') {
+
+
+
+    return response()->json(['success' => true]);
+    }
+    else{
+        return response()->json(['success' => false]);
+
+    }
+
+}
+    public function adddmin()
+    {   $data = DB::table('transactions')->where(
+        'status','0')->get();
+        // DD($data);
+
+        return view('adddmin', compact('data'));
+
+    }
     public function trade()
     {
         $prf = Auth::User();
@@ -134,6 +190,8 @@ class HomeController extends Controller
             'id_user' => $prf->id,
             'montant' => $request['amount'],
             'txid' => $request['txid'],
+            'status' => '0',
+            'type' => '0',
         ]);
         if ($recharge) {
             return redirect()

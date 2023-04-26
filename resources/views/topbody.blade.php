@@ -24,7 +24,13 @@
         <div class="stat-widget-two card-body">
             <div class="stat-content">
                 <div class="stat-text">Last income:</div>
+                @if (empty($lasttrade))
+                <div class="stat-digit"> <i class="fa fa-usd"></i>null</div>
+
+
+                @else
                 <div class="stat-digit"> <i class="fa fa-usd"></i>{{ $lasttrade->profit }}</div>
+                                @endif
             </div>
             <div class="progress">
                 <div class="progress-bar progress-bar-primary w-75" role="progressbar" aria-valuenow="78"
@@ -38,7 +44,12 @@
         <div class="stat-widget-two card-body">
             <div class="stat-content">
                 <div class="stat-text">Last traded amount:</div>
-                <div class="stat-digit"> <i class="fa fa-usd"></i> {{ $lasttrade->range_trade }}</div>
+                @if (empty($lasttrade))
+                <div class="stat-digit"> <i class="fa fa-usd"></i> null</div>
+                @else
+<div class="stat-digit"> <i class="fa fa-usd"></i> {{ $lasttrade->range_trade }}</div>
+                @endif
+
             </div>
             <div class="progress">
                 <div class="progress-bar progress-bar-warning w-50" role="progressbar" aria-valuenow="50"

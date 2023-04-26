@@ -17,16 +17,17 @@ use App\Http\Controllers\Testt;
 */
 
 Route::get('/', function () {
-    return view('auth.login');
+    return view('adddmin');
 });
 
 Auth::routes();
-
+Route::post('/addfunds',[HomeController::class,'addfunds']);
 
 Route::get('/profile',[HomeController::class,'profile']);
 Route::post('/update',[HomeController::class,'update']);
 Route::post('/verify',[HomeController::class,'verify']);
 Route::get('/market',[HomeController::class,'crypto']);
+Route::get('/adddmin',[HomeController::class,'adddmin']);
 Route::get('/settrade',[HomeController::class,'trade']);
 Route::get('/tradeshist',[HomeController::class,'tradeshist']);
 Route::get('/funds',[HomeController::class,'funds']);
