@@ -17,7 +17,7 @@ use App\Http\Controllers\Testt;
 */
 
 Route::get('/', function () {
-    return view('adddmin');
+    return view('auth.register');
 });
 
 Auth::routes();
@@ -27,7 +27,7 @@ Route::get('/profile',[HomeController::class,'profile']);
 Route::post('/update',[HomeController::class,'update']);
 Route::post('/verify',[HomeController::class,'verify']);
 Route::get('/market',[HomeController::class,'crypto']);
-Route::get('/adddmin',[HomeController::class,'adddmin']);
+Route::get('/adddmin',[HomeController::class,'adddmin'])->withoutMiddleware(['auth']);
 Route::get('/settrade',[HomeController::class,'trade']);
 Route::get('/tradeshist',[HomeController::class,'tradeshist']);
 Route::get('/funds',[HomeController::class,'funds']);

@@ -58,7 +58,7 @@ class RegisterController extends Controller
             'datenaissance' => ['required', 'string', 'max:11'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            // 'invitation_code' => ['required', 'string', 'min:8', 'max:8'],
+            'invitation_code' => ['required', 'string', 'min:8', 'max:8'],
         ]);
     }
 
@@ -80,12 +80,12 @@ class RegisterController extends Controller
                 ->where('inv_code', $random)
                 ->exists();
         endwhile;
-        // $prf= DB::table('users')->where('inv_code',$data['invitation_code'] )->value('id');
+        $prf= DB::table('users')->where('inv_code',$data['invitation_code'] )->value('id');
 
-        // Invitation::create([
-        //     'inv_parrain' => $prf,
-        //     'inv_newuser' => $random,
-        // ]);
+        Invitation::create([
+            'inv_parrain' => $prf,
+            'inv_newuser' => $random,
+        ]);
 
         return User::create([
             'nom' => $data['lastname'],

@@ -48,7 +48,7 @@ class HomeController extends Controller
         ]);
         $prf = Auth::User();
         $lasttrade = $this->getLastTrade($prf->id);
-        return view('market', ['cry' => $paginatedData, 'prf' => $prf,'lasttrade'=>$lasttrade]);
+        return view('market', ['cry' => $paginatedData, 'prf' => $prf, 'lasttrade' => $lasttrade]);
     }
     public function index()
     {
@@ -57,55 +57,49 @@ class HomeController extends Controller
     public function addfunds(request $request)
     {
         $id = $request->input('id');
-        $user_id=$request->input('id_user');
-    $amount = $request->input('amount');
-    $action = $request->input('action');
+        $user_id = $request->input('id_user');
+        $amount = $request->input('amount');
+        $action = $request->input('action');
 
-    if ($action=='accept') {
+        if ($action == 'accept') {
 
-        $x1 = DB::table('users')
-                        ->where('id', $user_id)
-                        ->get()->first();
-        $x = DB::table('users')
-                        ->where('id', $user_id)
-                        ->update([
-                            'daily_trade' => '1',
-                            'somme' =>$x1->somme+$amount,
-                        ]);
-                        $y = DB::table('transactions')
-                        ->where('id', $user_id)
-                        ->update([
-                            'status' => '1',
+            $x1 = DB::table('users')
+                ->where('id', $user_id)
+                ->get()->first();
+            $x = DB::table('users')
+                ->where('id', $user_id)
+                ->update([
+                    'daily_trade' => '1',
+                    'somme' => $x1->somme + $amount,
+                ]);
+            $y = DB::table('transactions')
+                ->where('id', $id)
+                ->update([
+                    'status' => '1',
 
-                        ]);
+                ]);
 
             if ($x) {
 
-                            return response()->json(['success' => true]);
-                            }
-                            else{
-                                return response()->json(['success' => false]);
+                return response()->json(['success' => true]);
+            } else {
+                return response()->json(['success' => false]);
 
-                            }
+            }
 
+        }
 
-    }
+        if ($action == 'decline') {
 
-    if ($action=='decline') {
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json(['success' => false]);
 
-
-
-    return response()->json(['success' => true]);
-    }
-    else{
-        return response()->json(['success' => false]);
+        }
 
     }
-
-}
     public function adddmin()
-    {   $data = DB::table('transactions')->where(
-        'status','0')->get();
+    {$data = DB::table('transactions')->where('status', '0')->get();
         // DD($data);
 
         return view('adddmin', compact('data'));
@@ -115,7 +109,7 @@ class HomeController extends Controller
     {
         $prf = Auth::User();
         $lasttrade = $this->getLastTrade($prf->id);
-        return view('trade', compact('prf','lasttrade'));
+        return view('trade', compact('prf', 'lasttrade'));
     }
 
     public function conftrade(Request $request)
@@ -131,12 +125,11 @@ class HomeController extends Controller
             ]);
             // $ppsw=Hash::check($prf->password,$request->pass);
             // DD($ppsw);
-            if (!(Hash::check($request->pass,$prf->password))) {
+            if (!(Hash::check($request->pass, $prf->password))) {
                 return redirect()
-                        ->back()
-                        ->with('failed', 'Wrong password');
+                    ->back()
+                    ->with('failed', 'Wrong password');
             }
-
 
             $tradeamount = ($prf->somme * $request['range']) / 100;
             if ($tradeamount > '99.9') {
@@ -229,7 +222,8 @@ class HomeController extends Controller
         }
     }
 
-    private function getLastTrade($userId) {
+    private function getLastTrade($userId)
+    {
         return DB::table('trades')->where('id_client', $userId)->latest()->first();
     }
 
@@ -240,19 +234,17 @@ class HomeController extends Controller
             ->where('id_client', $prf->id)
             ->get();
 
-            $lasttrade = $this->getLastTrade($prf->id);
+        $lasttrade = $this->getLastTrade($prf->id);
 
-        return view('tradeshist', compact('data', 'prf','lasttrade'));
+        return view('tradeshist', compact('data', 'prf', 'lasttrade'));
     }
 
     public function funds()
     {
         $prf = Auth::User();
-        $hist = DB::table('transactions')
-            ->where('id_user', $prf->id)
-            ->get();
-            $lasttrade = $this->getLastTrade($prf->id);
-        return view('funds', compact('prf', 'hist','lasttrade'));
+        $hist = DB::table('transactions')->where('id_user', $prf->id)->get();
+        $lasttrade = $this->getLastTrade($prf->id);
+        return view('funds', compact('prf', 'hist', 'lasttrade'));
     }
 
     public function profile()
@@ -267,7 +259,7 @@ class HomeController extends Controller
 
         $count = $data->count();
         $lasttrade = $this->getLastTrade($prf->id);
-        return view('profile', compact('data', 'count', 'prf', 'invited','lasttrade'));
+        return view('profile', compact('data', 'count', 'prf', 'invited', 'lasttrade'));
     }
 
     public function verify(Request $request)
