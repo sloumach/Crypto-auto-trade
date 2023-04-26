@@ -15,7 +15,7 @@ class CreateTradesTable extends Migration
     {
         Schema::create('trades', function (Blueprint $table) {
             $table->bigInteger('id')->unique()->autoIncrement();
-            $table->bigInteger('id_client');
+            $table->unsignedBigInteger('id_client');
             $table
                 ->foreign('id_client')
                 ->references('id')

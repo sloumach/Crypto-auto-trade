@@ -13,15 +13,13 @@ class CreateInvitationsTable extends Migration
      */
     public function up()
     {
+
+
         Schema::create('invitations', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('inv_parrain');
-            $table
-                ->foreign('inv_parrain')
-                ->references('id')
-                ->on('users');
+            $table->unsignedBigInteger('inv_parrain');
+            $table->foreign('inv_parrain')->references('id')->on('users');
             $table->string('inv_newuser');
-
             $table->timestamps();
         });
     }

@@ -13,17 +13,14 @@ class CreateTransactionsTable extends Migration
      */
     public function up()
     {
-        Schema::table('transactions', function (Blueprint $table) {
-            $table->bigInteger('id')->autoIncrement();
-            $table->bigInteger('id_user');
-            $table
-                ->foreign('id_user')
-                ->references('id')
-                ->on('users');
+        Schema::create('transactions', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('id_user');
+            $table->foreign('id_user')->references('id')->on('users');
             $table->float('montant');
             $table->text('txid');
             $table->integer('status')->default('0');
-
+            $table->integer('type');
             $table->timestamps();
         });
     }
