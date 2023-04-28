@@ -67,6 +67,8 @@ background: #2b195e;
         padding: 10px 20px;
         width: 80%;
         margin-top: 5%;
+        overflow-x: auto;
+        height: calc(100vh - 50px);
     }
 }
 
