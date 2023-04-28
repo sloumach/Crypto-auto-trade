@@ -25,7 +25,7 @@
             <div class="stat-content">
                 <div class="stat-text">Last income:</div>
                 @if (empty($lasttrade))
-                <div class="stat-digit"> <i class="fa fa-usd"></i>null</div>
+                <div class="stat-digit"> <i class="fa fa-usd"></i>0</div>
 
 
                 @else
@@ -45,7 +45,7 @@
             <div class="stat-content">
                 <div class="stat-text">Last traded amount:</div>
                 @if (empty($lasttrade))
-                <div class="stat-digit"> <i class="fa fa-usd"></i> null</div>
+                <div class="stat-digit"> <i class="fa fa-usd"></i> 0</div>
                 @else
 <div class="stat-digit"> <i class="fa fa-usd"></i> {{ $lasttrade->range_trade }}</div>
                 @endif
