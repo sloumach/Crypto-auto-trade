@@ -54,6 +54,38 @@ class HomeController extends Controller
     {
         return view('home');
     }
+    public function revverif(Request $request)
+    {
+        $action = $request->input('action');
+        $user_id = $request->input('id');
+
+        if ($action == 'accept') {
+            $x = DB::table('users')
+                ->where('id', $user_id)
+                ->update([
+                    'status' => '1',
+
+                ]);
+
+        }
+        if ($action == 'reject') {
+            $x = DB::table('users')
+                ->where('id', $user_id)
+                ->update([
+                    'status' => '0',
+
+                ]);
+
+
+        }
+        if ($x) {
+
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json(['success' => false]);
+
+        }
+    }
     public function addfunds(request $request)
     {
         $id = $request->input('id');
@@ -117,10 +149,19 @@ class HomeController extends Controller
 
     }
     public function adddmin()
-    {$data = DB::table('transactions')->where('status', '0')->get();
+    {
+        $data = DB::table('transactions')->where('status', '0')->get();
         // DD($data);
 
         return view('adddmin', compact('data'));
+
+    }
+    public function adddminverif()
+    {
+        $data = DB::table('users')->where('status', '2')->get();
+         //DD($data);
+
+        return view('adddminverif', compact('data'));
 
     }
     public function trade()
@@ -260,7 +301,7 @@ class HomeController extends Controller
                 ->with('failed', 'insuffisant');
 
         }
-        if ($nbr>1) {
+        if ($nbr!=1) {
             return redirect()
                 ->back()
                 ->with('failed', 'an old withdraw transaction is in waiting, you cant add another withdraw for the moment');
