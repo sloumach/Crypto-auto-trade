@@ -352,6 +352,28 @@
 
 
             </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade show" id="flash-message-modal" tabindex="-1" role="dialog" aria-labelledby="flash-message-modal-label" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered " role="document">
+            <div class="modal-content text-center">
+                <div class="modal-header ">
+                    <h5 class="modal-title  " id="flash-message-modal-label">Read our terms please</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <a href="{{ url('/terms') }}" >
+                    <span class="badge bg-dark text-white">Terms of use</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
             <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                   <div class="modal-content  d-flex align-items-center">
@@ -450,6 +472,11 @@
     <script src="dshb/vendor/global/global.min.js"></script>
     <script src="dshb/js/quixnav-init.js"></script>
     <script src="dshb/js/custom.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#flash-message-modal').modal('show');
+        });
+    </script>
     @if(count($errors) > 0)
     <script>
       $(document).ready(function() {

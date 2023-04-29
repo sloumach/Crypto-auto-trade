@@ -61,7 +61,7 @@ class HomeController extends Controller
         $amount = $request->input('amount');
         $action = $request->input('action');
 
-        if ($action == 'accept') {
+        if ($action == 'recharge') {
 
             $x1 = DB::table('users')
                 ->where('id', $user_id)
@@ -89,12 +89,30 @@ class HomeController extends Controller
 
         }
 
-        if ($action == 'decline') {
+        if ($action == 'withdraw') {
+            $x1 = DB::table('users')
+            ->where('id', $user_id)
+            ->get()->first();
+        $x = DB::table('users')
+            ->where('id', $user_id)
+            ->update([
+                'daily_trade' => '1',
+                'somme' => $x1->somme - $amount,
+            ]);
+        $y = DB::table('transactions')
+            ->where('id', $id)
+            ->update([
+                'status' => '1',
+
+            ]);
+
+        if ($x) {
 
             return response()->json(['success' => true]);
         } else {
             return response()->json(['success' => false]);
 
+        }
         }
 
     }
@@ -129,6 +147,12 @@ class HomeController extends Controller
                 return redirect()
                     ->back()
                     ->with('failed', 'Wrong password');
+            }
+            $nbr= DB::table('transactions')->where('id_user', $prf->id)->where('status','0')->where('type','0')->count();
+            if ($nbr>0) {
+                return redirect()
+                    ->back()
+                    ->with('failed', 'you have a withdraw in waiting, you cant set a trade for the moment');
             }
 
             $tradeamount = ($prf->somme * $request['range']) / 100;
@@ -197,34 +221,91 @@ class HomeController extends Controller
         }
     }
     public function withdraw(Request $request)
-    {
-        $prf = Auth::User();
+    {   $prf = Auth::User();
+        $nbr= DB::table('transactions')->where('id_user', $prf->id)->where('status','0')->count();
+
         $validatedData = $request->validate([
             'amount' => 'required |numeric',
 
             'password' => 'required',
         ]);
 
-        $recharge = Transaction::create([
+        if (!(Hash::check($request->password, $prf->password))) {
+            return redirect()
+                ->back()
+                ->with('failed', 'Wrong password');
+        }
+        // if ( $prf->status =='0') {
+        //     return redirect()
+        //         ->back()
+        //         ->with('failed', 'You must verify your account before withdrawing');
+
+        // }
+
+        if ( $request->amount < 50) {
+            return redirect()
+                ->back()
+                ->with('failed', 'minimum 50$');
+
+        }
+        if ( $request->amount > 2600) {
+            return redirect()
+                ->back()
+                ->with('failed', 'maximum 2599$');
+
+        }
+        if ($prf->somme < $request->amount) {
+            return redirect()
+                ->back()
+                ->with('failed', 'insuffisant');
+
+        }
+        if ($nbr>1) {
+            return redirect()
+                ->back()
+                ->with('failed', 'an old withdraw transaction is in waiting, you cant add another withdraw for the moment');
+
+        }
+
+        $withdraw = Transaction::create([
             'id_user' => $prf->id,
             'montant' => $request['amount'],
             'txid' => 'withdraw',
+            'status' => '0',
             'type' => '1',
         ]);
-        if ($recharge) {
+        if ($withdraw) {
             return redirect()
                 ->back()
-                ->with('success', 'waiting for confirmation withdraw');
+                ->with('success', 'Withdraw accepted, waiting for confirmation withdraw');
         } else {
             return redirect()
                 ->back()
-                ->with('failed', 'verify you informations');
+                ->with('failed', 'withdraw refused, verify with support');
         }
     }
 
     private function getLastTrade($userId)
     {
         return DB::table('trades')->where('id_client', $userId)->latest()->first();
+    }
+    public function terms()
+    {
+        $prf = Auth::User();
+        $data = DB::table('trades')
+            ->where('id_client', $prf->id)
+            ->get();
+            $lasttrade = $this->getLastTrade($prf->id);
+        return view('terms',compact('data', 'prf', 'lasttrade'));
+    }
+    public function aboutus()
+    {
+        $prf = Auth::User();
+        $data = DB::table('trades')
+            ->where('id_client', $prf->id)
+            ->get();
+            $lasttrade = $this->getLastTrade($prf->id);
+        return view('aboutus',compact('data', 'prf', 'lasttrade'));
     }
 
     public function tradeshist()
@@ -249,6 +330,8 @@ class HomeController extends Controller
 
     public function profile()
     {
+
+
         $prf = Auth::User();
         $data = DB::table('messages')
             ->where('id_user', $prf->id)

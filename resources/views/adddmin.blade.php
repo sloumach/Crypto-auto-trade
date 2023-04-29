@@ -41,15 +41,18 @@
             <td>{{ $datas->txid }}</td>
             <td><span class="badge bg-warning">waiting</span></td>
             @if ( $datas->type =='0' )
-            <td>Deposit</td>
+            <td>recharge</td>
+            <td><button type="button" class="btn btn-success accept-recharge" data-amount="{{ $datas->montant }}" data-user="{{ $datas->id_user }}" id="{{ $datas->id }}">Accept</button>
+                <button type="button" class="btn btn-danger decline-recharge" data-user="{{ $datas->id_user }}" data-amount="{{ $datas->montant }}" id="{{ $datas->id }}">Decline</button></td>
             @else
             <td>withdraw</td>
+            <td><button type="button" class="btn btn-success accept-withdraw" data-amount="{{ $datas->montant }}" data-user="{{ $datas->id_user }}" id="{{ $datas->id }}">Accept</button>
+                <button type="button" class="btn btn-danger decline-withdraw" data-user="{{ $datas->id_user }}" data-amount="{{ $datas->montant }}" id="{{ $datas->id }}">Decline</button></td>
             @endif
 
             <td>{{ $datas->created_at }}</td>
             <td>{{ $datas->created_at }}</td>
-            <td><button type="button" class="btn btn-success accept-btn" data-amount="{{ $datas->montant }}" data-user="{{ $datas->id_user }}" id="{{ $datas->id }}">Accept</button>
-                <button type="button" class="btn btn-danger decline-btn" data-user="{{ $datas->id_user }}" data-amount="{{ $datas->montant }}" id="{{ $datas->id }}">Decline</button></td>
+
           </tr>
           @endforeach
 
@@ -67,7 +70,7 @@
 <script>
 
     $(document).ready(function() {
-      $('.accept-btn').click(function() {
+      $('.accept-recharge').click(function() {
         var id = $(this).attr('id');
         var amount = $(this).data('amount');
         var id_user = $(this).data('user');
@@ -81,7 +84,7 @@
             id: id,
             amount: amount,
             id_user: id_user,
-            action: 'accept'
+            action: 'recharge'
           },
           success: function(data) {
             // Handle success response here
@@ -94,7 +97,7 @@
         });
       });
 
-      $('.decline-btn').click(function() {
+      $('.accept-withdraw').click(function() {
         var id = $(this).attr('id');
         var amount = $(this).data('amount');
         var id_user = $(this).data('user');
@@ -108,7 +111,7 @@
             id: id,
             amount: amount,
             id_user: id_user,
-            action: 'decline'
+            action: 'withdraw'
           },
           success: function(data) {
             // Handle success response here

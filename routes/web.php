@@ -30,6 +30,8 @@ Route::get('/market',[HomeController::class,'crypto']);
 Route::get('/adddmin',[HomeController::class,'adddmin'])->withoutMiddleware(['auth']);
 Route::get('/settrade',[HomeController::class,'trade']);
 Route::get('/tradeshist',[HomeController::class,'tradeshist']);
+Route::get('/terms',[HomeController::class,'terms']);
+Route::get('/aboutus',[HomeController::class,'aboutus']);
 Route::get('/funds',[HomeController::class,'funds']);
 Route::post('/conftrade',[HomeController::class,'conftrade']);
 Route::post('/recharge',[HomeController::class,'recharge']);
