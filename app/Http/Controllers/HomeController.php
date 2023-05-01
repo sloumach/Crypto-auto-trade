@@ -276,12 +276,12 @@ class HomeController extends Controller
                 ->back()
                 ->with('failed', 'Wrong password');
         }
-        // if ( $prf->status =='0') {
-        //     return redirect()
-        //         ->back()
-        //         ->with('failed', 'You must verify your account before withdrawing');
+        if ( $prf->status =='0') {
+            return redirect()
+                ->back()
+                ->with('failed', 'You must verify your account before withdrawing');
 
-        // }
+        }
 
         if ( $request->amount < 50) {
             return redirect()
