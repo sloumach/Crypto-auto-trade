@@ -21,15 +21,20 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+Route::get('/adddmin',[HomeController::class,'adddmin'])->withoutMiddleware(['auth']);
+Route::get('/adddminverif',[HomeController::class,'adddminverif'])->withoutMiddleware(['auth']);
+Route::get('/adddminmessages',[HomeController::class,'adddminmessages'])->withoutMiddleware(['auth']);
 Route::post('/addfunds',[HomeController::class,'addfunds']);
 Route::post('/revverif',[HomeController::class,'revverif']);
+Route::post('/addmsg',[HomeController::class,'addmsg']);
+
+
+
 
 Route::get('/profile',[HomeController::class,'profile']);
 Route::post('/update',[HomeController::class,'update']);
 Route::post('/verify',[HomeController::class,'verify']);
 Route::get('/market',[HomeController::class,'crypto']);
-Route::get('/adddmin',[HomeController::class,'adddmin'])->withoutMiddleware(['auth']);
-Route::get('/adddminverif',[HomeController::class,'adddminverif'])->withoutMiddleware(['auth']);
 Route::get('/settrade',[HomeController::class,'trade']);
 Route::get('/tradeshist',[HomeController::class,'tradeshist']);
 Route::get('/terms',[HomeController::class,'terms']);

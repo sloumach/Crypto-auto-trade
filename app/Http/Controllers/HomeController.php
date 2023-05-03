@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Trade;
 use App\Models\Transaction;
 use App\Models\User;
+use App\Models\Message;
 use DB;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
@@ -368,6 +369,23 @@ class HomeController extends Controller
         $lasttrade = $this->getLastTrade($prf->id);
         return view('funds', compact('prf', 'hist', 'lasttrade'));
     }
+    public function adddminmessages()
+    {
+        return view('adddminmessages');
+    }
+    public function addmsg(Request $request)
+    {
+
+            $newMessage = new Message;
+            $newMessage->id_user = $request->iduser;
+            $newMessage->message = $request->message;
+
+            $newMessage->save();
+            return redirect()
+                ->back()
+                ->with('success', 'message sent');
+
+    }
 
     public function profile()
     {
@@ -383,7 +401,10 @@ class HomeController extends Controller
 
         $count = $data->count();
         $lasttrade = $this->getLastTrade($prf->id);
-        return view('profile', compact('data', 'count', 'prf', 'invited', 'lasttrade'));
+        $msg=DB::table('messages')
+        ->where('id_user', $prf->id)
+        ->get();
+        return view('profile', compact('data', 'count', 'prf', 'invited', 'lasttrade','msg'));
     }
 
     public function verify(Request $request)
