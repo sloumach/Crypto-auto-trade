@@ -27,8 +27,9 @@
             <th>Transaction ID</th>
             <th>Status</th>
             <th>Type</th>
-            <th>Created At</th>
             <th>Actions:</th>
+            <th>Created At</th>
+
 
           </tr>
         </thead>
@@ -51,7 +52,7 @@
             @endif
 
             <td>{{ $datas->created_at }}</td>
-            <td>{{ $datas->created_at }}</td>
+
 
           </tr>
           @endforeach

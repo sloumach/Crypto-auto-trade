@@ -1,7 +1,7 @@
 <!--**********************************
             Sidebar start
         ***********************************-->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 <div class="quixnav" style="">
     <div class="quixnav-scroll">
         <ul class="metismenu" id="menu">
@@ -34,18 +34,19 @@
 
             </li>
 
-            <li><a class="" href="{{ url('/logout') }}" aria-expanded="false"><i
-                        class="icon-logout"></i><span class="nav-text">Logout</span></a>
+
+            <li><a class="" href="{{ url('/terms') }}" aria-expanded="false"><i class="bi bi-file-ruled"></i><span
+                        class="nav-text">Terms of use</span></a>
 
             </li>
-            <li><a class="" href="{{ url('/terms') }}" aria-expanded="false"><i
-                class="bi bi-file-ruled"></i><span class="nav-text">Terms of use</span></a>
+            <li><a class="" href="{{ url('/aboutus') }}" aria-expanded="false"><i
+                        class="icon icon-world-2"></i><span class="nav-text">About us</span></a>
 
-    </li>
-    <li><a class="" href="{{ url('/aboutus') }}" aria-expanded="false"><i
-        class="icon icon-world-2"></i><span class="nav-text">About us</span></a>
+            </li>
+            <li><a class="" href="{{ url('/logout') }}" aria-expanded="false"><i class="icon-logout"></i><span
+                        class="nav-text">Logout</span></a>
 
-</li>
+            </li>
         </ul>
     </div>
 
