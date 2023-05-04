@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        Commands\ConfPentra::class,
     ];
 
     /**
@@ -24,34 +24,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule
-            ->call(function () {
-                $us = DB::table('users')
-                    ->where('id', '=', 2)
-                    ->first();
-                $x = $us->somme;
-
-                $usersWithTrades = DB::table('users')
-
-                    ->join('trades', 'users.id', '=', 'trades.id_client')
-                    ->distinct()
-                    ->get();
-
-                $usersWithTrades = DB::table('users')
-                    ->join('trades', function ($join) {
-                        $join->on('users.id', '=', 'trades.id_user')->where('trades.status', '=', 0);
-                    })
-                    ->select('users.*')
-                    ->distinct()
-                    ->get();
-
-                DB::table('users')
-                    ->where('id', '=', '2')
-                    ->update([
-                        'somme' => $x * 2,
-                    ]);
-            })
-            ->everyMinute();
+        $schedule->command('conpentra')->everyMinute();
     }
 
     /**

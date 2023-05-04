@@ -69,11 +69,11 @@ class Testt extends Controller
                 ->where('id', $conftrade2->id)
                 ->update(['profit' => $tst]);
 
-            if ($trd) {
-                echo ('<br>client somme done');
-            } else {
-                echo ('<br>client somme not done yet');
-            }
+            // if ($trd) {
+            //     echo ('<br>client somme done');
+            // } else {
+            //     echo ('<br>client somme not done yet');
+            // }
         }
 
         // DD($data);
