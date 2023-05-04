@@ -240,7 +240,10 @@ class HomeController extends Controller
     {
         $prf = Auth::User();
         $lasttrade = $this->getLastTrade($prf->id);
-        return view('trade', compact('prf', 'lasttrade'));
+        $msg=DB::table('messages')
+        ->where('id_user', $prf->id)
+        ->get();
+        return view('trade', compact('prf', 'lasttrade','msg'));
     }
 
     public function conftrade(Request $request)
@@ -446,15 +449,14 @@ class HomeController extends Controller
     }
     public function addmsg(Request $request)
     {
-
+        // DD($request);
             $newMessage = new Message;
             $newMessage->id_user = $request->iduser;
             $newMessage->message = $request->message;
 
             $newMessage->save();
-            return redirect()
-                ->back()
-                ->with('success', 'message sent');
+
+            return view('adddminmessages');
 
     }
 

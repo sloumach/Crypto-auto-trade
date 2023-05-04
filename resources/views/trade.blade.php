@@ -3,7 +3,7 @@
 @section('content')
 
     <body>
-        @include('header')
+        @include('header',['msg' => $msg,  'prf'=>$prf])
         @include('navbar')
         <!--**********************************
                                                                 Sidebar end
