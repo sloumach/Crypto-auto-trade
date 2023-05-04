@@ -26,7 +26,7 @@ Route::get('/adddminverif',[HomeController::class,'adddminverif'])->withoutMiddl
 Route::get('/adddminmessages',[HomeController::class,'adddminmessages'])->withoutMiddleware(['auth']);
 Route::post('/addfunds',[HomeController::class,'addfunds']);
 Route::post('/revverif',[HomeController::class,'revverif']);
-Route::post('/addmsg',[HomeController::class,'addmsg']);
+Route::post('/addmsg',[HomeController::class,'addmsg'])->withoutMiddleware(['auth']);
 
 
 
