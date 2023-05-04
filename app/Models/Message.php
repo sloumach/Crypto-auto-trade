@@ -18,8 +18,8 @@ class Message extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'nom',
-        'iduser',
+
+        'id_user',
         'message',
         'status',
 

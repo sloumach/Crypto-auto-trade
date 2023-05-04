@@ -5,7 +5,8 @@
     </head>
 
     <body>
-        @include('header')
+
+        @include('header',['msg' => $msg,  'prf'=>$prf])
         @include('navbar')
         <!--**********************************
                                 Sidebar end
@@ -225,7 +226,7 @@
                                                                                     </div>
                                                                                     <div class="modal-footer">
                                                                                         <button type="button"
-                                                                                            class="btn btn-secondary"
+                                                                                            class="btn btn-secondary closemsg"
                                                                                             data-dismiss="modal">Close</button>
 
                                                                                     </div>
