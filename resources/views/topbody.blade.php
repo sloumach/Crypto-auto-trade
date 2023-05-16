@@ -1,9 +1,9 @@
-<div class="col-lg-3 col-sm-6">
-    <div class="card">
+<div class="col-lg-3 col-sm-6" >
+    <div class="card" style="background-color:#343957;">
         <div class="stat-widget-two card-body">
             <div class="stat-content">
-                <div class="stat-text">Account status: </div>
-                <div class="stat-digit">
+                <div class="stat-text text-white">Account status: </div>
+                <div class="stat-digit ">
                     @if ($prf->status == '0')
                         <span class="badge bg-danger stat-digit text-white">Not verified</span>
                     @endif
@@ -20,16 +20,16 @@
     </div>
 </div>
 <div class="col-lg-3 col-sm-6">
-    <div class="card">
+    <div class="card" style="background-color:#343957;">
         <div class="stat-widget-two card-body">
             <div class="stat-content">
-                <div class="stat-text">Last income:</div>
+                <div class="stat-text text-white">Last income:</div>
                 @if (empty($lasttrade))
                 <div class="stat-digit"> <i class="fa fa-usd"></i>0</div>
 
 
                 @else
-                <div class="stat-digit"> <i class="fa fa-usd"></i>{{ $lasttrade->profit }}</div>
+                <div class="stat-digit text-white"> <i class="fa fa-usd"></i>{{ $lasttrade->profit }}</div>
                                 @endif
             </div>
             <div class="progress">
@@ -40,14 +40,14 @@
     </div>
 </div>
 <div class="col-lg-3 col-sm-6">
-    <div class="card">
+    <div class="card" style="background-color:#343957;">
         <div class="stat-widget-two card-body">
             <div class="stat-content">
-                <div class="stat-text">Last traded amount:</div>
+                <div class="stat-text text-white">Last traded amount:</div>
                 @if (empty($lasttrade))
                 <div class="stat-digit"> <i class="fa fa-usd"></i> 0</div>
                 @else
-<div class="stat-digit"> <i class="fa fa-usd"></i> {{ $lasttrade->range_trade }}</div>
+<div class="stat-digit text-white"> <i class="fa fa-usd"></i> {{ $lasttrade->range_trade }}</div>
                 @endif
 
             </div>
@@ -59,11 +59,11 @@
     </div>
 </div>
 <div class="col-lg-3 col-sm-6">
-    <div class="card">
+    <div class="card" style="background-color:#343957;">
         <div class="stat-widget-two card-body">
             <div class="stat-content">
-                <div class="stat-text">Total:</div>
-                <div class="stat-digit"> <i class="fa fa-usd"></i>{{ $prf->somme }}</div>
+                <div class="stat-text text-white">Total:</div>
+                <div class="stat-digit text-white"> <i class="fa fa-usd"></i>{{ $prf->somme }}</div>
             </div>
             <div class="progress">
                 <div class="progress-bar progress-bar-danger w-65" role="progressbar" aria-valuenow="65"

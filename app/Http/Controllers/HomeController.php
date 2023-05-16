@@ -411,8 +411,11 @@ class HomeController extends Controller
         $data = DB::table('trades')
             ->where('id_client', $prf->id)
             ->get();
+            $msg=DB::table('messages')
+            ->where('id_user', $prf->id)
+            ->get();
             $lasttrade = $this->getLastTrade($prf->id);
-        return view('terms',compact('data', 'prf', 'lasttrade'));
+        return view('terms',compact('data', 'prf', 'lasttrade','msg'));
     }
     public function aboutus()
     {
@@ -421,7 +424,10 @@ class HomeController extends Controller
             ->where('id_client', $prf->id)
             ->get();
             $lasttrade = $this->getLastTrade($prf->id);
-        return view('aboutus',compact('data', 'prf', 'lasttrade'));
+            $msg=DB::table('messages')
+            ->where('id_user', $prf->id)
+            ->get();
+        return view('aboutus',compact('data', 'prf', 'lasttrade','msg'));
     }
 
     public function tradeshist()
@@ -430,18 +436,23 @@ class HomeController extends Controller
         $data = DB::table('trades')
             ->where('id_client', $prf->id)
             ->get();
-
+            $msg=DB::table('messages')
+            ->where('id_user', $prf->id)
+            ->get();
         $lasttrade = $this->getLastTrade($prf->id);
 
-        return view('tradeshist', compact('data', 'prf', 'lasttrade'));
+        return view('tradeshist', compact('data', 'prf', 'lasttrade','msg'));
     }
 
     public function funds()
     {
         $prf = Auth::User();
+        $msg=DB::table('messages')
+        ->where('id_user', $prf->id)
+        ->get();
         $hist = DB::table('transactions')->where('id_user', $prf->id)->get();
         $lasttrade = $this->getLastTrade($prf->id);
-        return view('funds', compact('prf', 'hist', 'lasttrade'));
+        return view('funds', compact('prf', 'hist', 'lasttrade','msg'));
     }
     public function adddminmessages()
     {

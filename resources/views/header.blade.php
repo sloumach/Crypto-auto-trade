@@ -39,7 +39,7 @@
     <!--**********************************
                 Header start
             ***********************************-->
-    <div class="header">
+    <div class="header" >
         <div class="header-content">
             <nav class="navbar navbar-expand">
                 <div class="collapse navbar-collapse justify-content-between">
@@ -48,10 +48,7 @@
                     </div>
 
                     <ul class="navbar-nav header-right">
-                        @foreach ($msg as $item)
 
-
-                                            @if ($item->status =='0')
                         <li class="nav-item dropdown notification_dropdown">
                             <a class="nav-link" role="button" data-toggle="dropdown">
                                 <i class="mdi mdi-bell"></i>
@@ -59,29 +56,32 @@
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
                                 <ul class="list-unstyled">
+                                    @foreach ($msg as $item)
+                                            @if ($item->status == '0')
                                     <li class="media dropdown-item">
                                         <span class="success"><i class="ti-user"></i></span>
-                                        <div class="media-body">
+
+                                                <div class="media-body">
 
 
 
-                                                <p>New message,check <strong>inbox</strong>
+                                                    <p>New messages,check <strong>inbox</strong>
 
-                                                </p>
+                                                    </p>
 
 
-                                        </div>
-                                        <span class="notify-time">{{ $item->created_at }}</span>
+                                                </div>
+                                                <span class="notify-time">{{ $item->created_at }}</span>
                                     </li>
+                                    @endif
+                                    @endforeach
 
 
                                 </ul>
 
                             </div>
                         </li>
-                        @endif
 
-                                                @endforeach
                         <li class="nav-item dropdown header-profile">
                             <a class="nav-link" href="#" role="button" data-toggle="dropdown">
                                 <i class="mdi mdi-account"></i>

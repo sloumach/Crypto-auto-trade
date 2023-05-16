@@ -5,7 +5,7 @@
     </head>
 
     <body>
-        @include('header')
+        @include('header',['lasttrade' => $lasttrade,  'msg'=>$msg])
         @include('navbar')
             <!--**********************************
                 Content body start
