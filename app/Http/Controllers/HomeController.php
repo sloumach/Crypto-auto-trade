@@ -446,6 +446,7 @@ class HomeController extends Controller
 
     public function funds()
     {
+        // $app
         $prf = Auth::User();
         $msg=DB::table('messages')
         ->where('id_user', $prf->id)
