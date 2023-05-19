@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\HomeController;
 
-class confpentra extends Command
+class ConfPentra extends Command
 {
     /**
      * The name and signature of the console command.

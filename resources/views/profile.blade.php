@@ -359,12 +359,16 @@
     <div class="modal fade show" id="flash-message-modal" tabindex="-1" role="dialog" aria-labelledby="flash-message-modal-label" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered " role="document">
             <div class="modal-content text-center">
-                <div class="modal-header ">
-                    <h5 class="modal-title  " id="flash-message-modal-label">Read our terms please</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
+                <div class="modal-header text-center">
+                    <div class="container-fluid">
+                      <div class="row justify-content-center">
+                        <h5 class="modal-title" id="flash-message-modal-label">Read our terms please</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
                 <div class="modal-body">
                     <a href="{{ url('/terms') }}" >
                     <span class="badge bg-dark text-white">Terms of use</span></a>
