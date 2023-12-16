@@ -6,74 +6,73 @@
 
     <body>
 
-        @include('header',['msg' => $msg,  'prf'=>$prf])
+        @include('header', ['msg' => $msg, 'prf' => $prf])
         @include('navbar')
         <!--**********************************
-                                Sidebar end
-                            ***********************************-->
+                                        Sidebar end
+                                    ***********************************-->
 
         <!--**********************************
-                                Content body start
-                            ***********************************-->
-        <div class="content-body">
+                                        Content body start
+                                    ***********************************-->
+        <div class="content-body" style="min-height: 100px;">
             <!-- row -->
             <div class="container-fluid">
                 <div class="row">
-                    @include('topbody',['lasttrade' => $lasttrade,  'prf'=>$prf])
+                    @include('topbody', ['lasttrade' => $lasttrade, 'prf' => $prf])
 
                     <div class="col-lg-12">
                         <div class="card">
-                            <div class="col">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h4 class="card-title">Account:</h4>
-                                        @if (session()->has('success'))
-                                            <div class="alert alert-success">
-                                                {{ session()->get('success') }}
-                                            </div>
-                                        @endif
+                            <div class="card-header">
+                                <h4 class="card-title">Account:</h4>
+                                @if (session()->has('success'))
+                                    <div class="alert alert-success">
+                                        {{ session()->get('success') }}
                                     </div>
-                                    <div class="card-body">
-                                        <div class="row">
+                                @endif
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
 
-                                            <div class="col-xl-3">
-                                                <div class="nav flex-column nav-pills">
-                                                    <a href="#v-pills-home" data-toggle="pill"
-                                                        class="nav-link active show">Invite a friend</a>
-                                                    <a href="#v-pills-profile" data-toggle="pill"
-                                                        class="nav-link">Profile</a>
-                                                    <a href="#v-pills-messages" data-toggle="pill"
-                                                        class="nav-link">Messages</a>
-                                                    <a href="#v-pills-settings" data-toggle="pill" class="nav-link">Account
-                                                        verification</a>
-                                                </div>
-                                            </div>
-                                            <div class="col-xl-6 text-center ">
+                                    <div class="col-xl-3 align-self-center">
+                                        <div class="nav flex-column nav-pills">
+                                            <a href="#v-pills-home" data-toggle="pill" class="nav-link active show">Invite a
+                                                friend</a>
+                                            <a href="#v-pills-profile" data-toggle="pill" class="nav-link">Profile</a>
+                                            <a href="#v-pills-messages" data-toggle="pill" class="nav-link">Messages</a>
+                                            <a href="#v-pills-settings" data-toggle="pill" class="nav-link">Account
+                                                verification</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-2"></div>
+                                    <div class="col-xl-6 align-self-center ">
+                                        <div class="row align-items-center">
+                                            <div class="col ">
                                                 <div class="tab-content">
                                                     <div id="v-pills-home" class="tab-pane fade active show">
                                                         <p>Invite a friend using this code when signin:
 
-                                                            <span
-                                                                class="badge bg-success text-white">{{ $prf->inv_code }}</span><br>
+                                                            <span class="badge bg-success text-white" style="animation: myAnim2 2s ease 0s infinite normal forwards;">{{ $prf->inv_code }}</span><br>
                                                             <!-- <img class="profile-img" src="{{ $prf->url_img }}" alt="public/{{ $prf->url_img }}"> -->
 
 
                                                         </p>
 
                                                     </div>
-                                                    <div id="v-pills-profile" class="tab-pane fade text-center">
+                                                    <div id="v-pills-profile" class="tab-pane fade text-center" style="overflow-y: scroll;
+                                                    max-height: 250px;">
                                                         <div class="container mt-2">
                                                             <div class="row ">
 
 
 
-                                                                <div class="card-body px-4 ">
+                                                                <div class="card-body px-4 pt-0 ">
                                                                     <div class="col-lg-6 col-sm-8  mx-auto ">
                                                                         <form action="{{ url('/update') }}" method="POST">
                                                                             @csrf
                                                                             @if ($prf->status == '0')
                                                                                 <div class="form-group">
-                                                                                    <label for="fullName">Nom</label>
+                                                                                    <label for="fullName">Last name:</label>
                                                                                     <input type="text"
                                                                                         class="form-control rounded-0"
                                                                                         id="fullName"
@@ -83,7 +82,7 @@
 
                                                                                 </div>
                                                                                 <div class="form-group">
-                                                                                    <label for="fullName">Prenom</label>
+                                                                                    <label for="fullName">First name:</label>
                                                                                     <input type="text"
                                                                                         class="form-control rounded-0"
                                                                                         id="fullName"
@@ -94,8 +93,8 @@
 
 
                                                                                 <div class="form-group">
-                                                                                    <label for="email">Adresse
-                                                                                        email</label>
+                                                                                    <label for="email">
+                                                                                        Email</label>
                                                                                     <input type="email"
                                                                                         class="form-control rounded-0"
                                                                                         id="email" name="email"
@@ -103,16 +102,13 @@
                                                                                         placeholder="Entrez votre adresse email">
                                                                                 </div>
                                                                                 <div class="form-group">
-                                                                                    <label for="password">Nouveau mot
-                                                                                        de passe</label>
+                                                                                    <label for="password">New password:</label>
                                                                                     <input type="password"
                                                                                         class="form-control rounded-0"
-                                                                                        name="password" id="password"
-                                                                                        >
+                                                                                        name="password" id="password">
                                                                                 </div>
                                                                                 <div class="form-group">
-                                                                                    <label for="passwordConfirm">Confirmez
-                                                                                        votre mot de passe</label>
+                                                                                    <label for="passwordConfirm">Confirm new password:</label>
                                                                                     <input type="password"
                                                                                         class="form-control rounded-0"
                                                                                         name="passwordconfirm"
@@ -121,16 +117,14 @@
                                                                                 </div>
                                                                             @else
                                                                                 <div class="form-group">
-                                                                                    <label for="password">Nouveau mot
-                                                                                        de passe</label>
+                                                                                    <label for="password">New password:</label>
                                                                                     <input type="password"
                                                                                         class="form-control rounded-0"
                                                                                         id="password" name="password"
                                                                                         placeholder="Entrez votre mot de passe">
                                                                                 </div>
                                                                                 <div class="form-group">
-                                                                                    <label for="passwordConfirm">Confirmez
-                                                                                        votre mot de passe</label>
+                                                                                    <label for="passwordConfirm">Confirm new password:</label>
                                                                                     <input type="password"
                                                                                         class="form-control rounded-0"
                                                                                         id="passwordconfirm"
@@ -141,8 +135,7 @@
 
 
                                                                             <div class="form-group">
-                                                                                <label for="password">Statut du
-                                                                                    compte</label>
+                                                                                <label for="password">Account status</label>
                                                                                 <br>
                                                                                 @if ($prf->status == '0')
                                                                                     <span
@@ -263,16 +256,20 @@
                                                                                                 <div class="date">
                                                                                                     11:49 am</div>
                                                                                             </a>
+
                                                                                         </div>
 
                                                                                     </div>
+
                                                                                 @endforeach
 
 
                                                                             </div>
                                                                             <!-- panel -->
-                                                                            <div class="row mt-4 m-4 mx-sm-4">
-                                                                                {{ $data->links('paginate') }}
+                                                                            <div class="row m-4 mx-sm-4 align-items-end">
+                                                                                <div class="col align-self-end">                                          {{ $data->links('paginate') }}
+                                                                                </div>
+
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -288,22 +285,19 @@
                                                             <form action="{{ url('/verify') }}" method="post"
                                                                 enctype="multipart/form-data">
                                                                 @csrf
-                                                                <div class="form-group">
-                                                                    <div class="input-group mb-3">
-
-                                                                        <div class="custom-file">
-                                                                            <input type="file"
-                                                                                class="custom-file-input"
-                                                                                id="inputGroupFile01" name="file">
-                                                                            <label class="custom-file-label"
-                                                                                for="inputGroupFile01">Choose
-                                                                                file</label>
-                                                                        </div>
-
-                                                                    </div>
 
 
-                                                                </div>
+
+                                                                <label for="formFile" class="form-label">Submit your ID:</label>
+                                                                <input class="form-control " id="formFile" type="file" name="file">
+
+
+
+
+
+
+
+
                                                                 <div class="form-group">
                                                                     <label for="confirmation"
                                                                         class="col-form-label">Wallet adress:</label>
@@ -321,15 +315,17 @@
                                                             </form>
                                                         @else
                                                             @if ($invited->count() == 0)
-                                                               <br> <span class="badge bg-warning text-white">To complete
+                                                                <br> <span class="badge bg-warning text-white">To complete
                                                                     the verification steps, you need to invite at least
                                                                     1 friend to join us.</span><br>
                                                             @endif
                                                             @if ($prf->status == '2')
-                                                                <br><span class="badge bg-warning text-white">Verification should not take more than 48 hours</span><br>
+                                                                <br><span class="badge bg-warning text-white">Verification
+                                                                    should not take more than 48 hours</span><br>
                                                             @endif
                                                             @if ($prf->status == '1')
-                                                               <br> <span class="badge bg-success text-white">Verified</span><br>
+                                                                <br> <span
+                                                                    class="badge bg-success text-white">Verified</span><br>
                                                             @endif
                                                         @endif
 
@@ -340,9 +336,11 @@
                                     </div>
                                 </div>
                             </div>
-
-
                         </div>
+
+
+
+
                         <!-- /# card -->
                     </div>
                     <!-- /# column -->
@@ -355,120 +353,121 @@
             </div>
 
 
-    <!-- Modal -->
-    <div class="modal fade show" id="flash-message-modal" tabindex="-1" role="dialog" aria-labelledby="flash-message-modal-label" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered " role="document">
-            <div class="modal-content text-center">
-                <div class="modal-header text-center">
-                    <div class="container-fluid">
-                      <div class="row justify-content-center">
-                        <h5 class="modal-title" id="flash-message-modal-label">Read our terms please</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                <div class="modal-body">
-                    <a href="{{ url('/terms') }}" >
-                    <span class="badge bg-dark text-white">Terms of use</span></a>
+            <!-- Modal -->
+            <div class="modal fade show" id="flash-message-modal" tabindex="-1" role="dialog"
+                aria-labelledby="flash-message-modal-label" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered " role="document">
+                    <div class="modal-content text-center">
+                        <div class="modal-header text-center">
+                            <div class="container-fluid">
+                                <div class="row justify-content-center">
+
+                                    <div class="col-11 col-md-10 col-lg-8 text-center">
+                                        <h5 class="modal-title" id="flash-message-modal-label">Read our terms please</h5>
+                                    </div>
+                                    <div class="col-1">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-body">
+                            <a href="{{ url('/terms') }}">
+                                <span class="badge bg-dark text-white">Terms of use</span></a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
 
-            <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                  <div class="modal-content  d-flex align-items-center">
+        <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content  d-flex align-items-center">
                     <div class="modal-header">
 
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
                     <div class="modal-body ">
-                      @if(count($errors) > 0)
-                        @foreach($errors->all() as $error)
-                          <span class="alert alert-danger text-white">{{ $error }}</span><br>
-                          <br>
-                          <br>
-                        @endforeach
-                      @endif
+                        @if (count($errors) > 0)
+                            @foreach ($errors->all() as $error)
+                                <span class="alert alert-danger text-white">{{ $error }}</span><br>
+                                <br>
+                                <br>
+                            @endforeach
+                        @endif
                     </div>
-                  </div>
                 </div>
-              </div>
+            </div>
+        </div>
 
-              <div class="modal fade" id="succModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                  <div class="modal-content  d-flex align-items-center">
+        <div class="modal fade" id="succModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content  d-flex align-items-center">
                     <div class="modal-header">
 
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
                     <div class="modal-body ">
-                        @if(session('update')=='Updated successfully')
-
-                        <div class="alert alert-success">
-                            {{ session()->get('update') }}
-                        </div>
+                        @if (session('update') == 'Updated successfully')
+                            <div class="alert alert-success">
+                                {{ session()->get('update') }}
+                            </div>
                         @endif
-                        @if(session('update')=='Update failed!')
-
-                        <div class="alert alert-danger">
-                            {{ session()->get('update') }}
-                        </div>
+                        @if (session('update') == 'Update failed!')
+                            <div class="alert alert-danger">
+                                {{ session()->get('update') }}
+                            </div>
                         @endif
-                        @if(session('update')=='Password not confirm!')
-
-                        <div class="alert alert-warning">
-                            {{ session()->get('update') }}
-                        </div>
+                        @if (session('update') == 'Password not confirm!')
+                            <div class="alert alert-warning">
+                                {{ session()->get('update') }}
+                            </div>
                         @endif
                     </div>
-                  </div>
                 </div>
-              </div>
+            </div>
+        </div>
 
-            {{-- @if ($errors)
+        {{-- @if ($errors)
                     <span class="badge bg-danger  text-white">
                         <strong>erreur wallet adress</strong>
                     </span>
                 @endif --}}
-                {{-- @if ($errors->has('file'))
+        {{-- @if ($errors->has('file'))
 
                 @endif --}}
 
         </div>
         <!--**********************************
-                                Content body end
-                            ***********************************-->
+                                        Content body end
+                                    ***********************************-->
 
 
         <!--**********************************
-                                Footer start
-                            ***********************************-->
-        <div class="footer">
-            <div class="copyright">
-                <p>Copyright © Designed &amp; Developed by <a href="#" target="_blank">Quixkit</a> 2019</p>
-                <p>Distributed by <a href="https://themewagon.com/" target="_blank">Themewagon</a></p>
-            </div>
-        </div>
+                                        Footer start
+                                    ***********************************-->
+        @include('footer')
         <!--**********************************
-                                Footer end
-                            ***********************************-->
+                                        Footer end
+                                    ***********************************-->
 
         <!--**********************************
-                               Support ticket button start
-                            ***********************************-->
+                                       Support ticket button start
+                                    ***********************************-->
 
         <!--**********************************
-                               Support ticket button end
-                            ***********************************-->
+                                       Support ticket button end
+                                    ***********************************-->
 
 
         </div>
@@ -482,23 +481,23 @@
             $('#flash-message-modal').modal('show');
         });
     </script>
-    @if(count($errors) > 0)
-    <script>
-      $(document).ready(function() {
-        $('#errorModal').modal('show');
-      });
-    </script>
-  @endif
-  @if(session()->has('update'))
-    <script>
-      $(document).ready(function() {
-        $('#succModal').modal('show');
-      });
-    </script>
-  @endif
+    @if (count($errors) > 0)
+        <script>
+            $(document).ready(function() {
+                $('#errorModal').modal('show');
+            });
+        </script>
+    @endif
+    @if (session()->has('update'))
+        <script>
+            $(document).ready(function() {
+                $('#succModal').modal('show');
+            });
+        </script>
+    @endif
 
 
     <!--**********************************
-                            Main wrapper end
+                                    Main wrapper end
 
 @endsection

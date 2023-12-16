@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Message;
 use App\Models\Trade;
 use App\Models\Transaction;
 use App\Models\User;
-use App\Models\Message;
 use DB;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
@@ -32,81 +32,80 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
 
-     public function confpentra()
-     {
+    public function confpentra()
+    {
 
-         // DD(Hash::make('test'));
-         $usersWithTrades = DB::table('users')
-             ->join('trades', function ($join) {
-                 $join->on('users.id', '=', 'trades.id_client')->where('trades.status', '=', 0);
-             })
-             ->select('users.*')
-             ->distinct()
-             ->get();
+        // DD(Hash::make('test'));
+        $usersWithTrades = DB::table('users')
+            ->join('trades', function ($join) {
+                $join->on('users.id', '=', 'trades.id_client')->where('trades.status', '=', 0);
+            })
+            ->select('users.*')
+            ->distinct()
+            ->get();
 
-         foreach ($usersWithTrades as $x) {
-             // $prorfit = ($somme * 100) / $trd->range_trade;
-             $randomFloat = 1.75 + (mt_rand() / mt_getrandmax()) * (3.21 - 1.85);
-             $randomFloat = mt_rand(175, 321) / 100;
-             $formattedFloat = number_format($randomFloat, 2, '.', '');
-             $rate = floatval($formattedFloat);
+        foreach ($usersWithTrades as $x) {
+            // $prorfit = ($somme * 100) / $trd->range_trade;
+            $randomFloat = 1.75 + (mt_rand() / mt_getrandmax()) * (3.21 - 1.85);
+            $randomFloat = mt_rand(175, 321) / 100;
+            $formattedFloat = number_format($randomFloat, 2, '.', '');
+            $rate = floatval($formattedFloat);
 
-             $id = $x->id;
-             $somme = $x->somme;
+            $id = $x->id;
+            $somme = $x->somme;
 
-             $trrd = DB::table('trades')
-                 ->where('id_client', $id)
-                 ->where('status', 0)
-                 ->first();
+            $trrd = DB::table('trades')
+                ->where('id_client', $id)
+                ->where('status', 0)
+                ->first();
 
-             $conftrade = DB::table('trades')
-                 ->where('id_client', $id)
-                 ->where('status', 0)
+            $conftrade = DB::table('trades')
+                ->where('id_client', $id)
+                ->where('status', 0)
 
-                 ->update([
-                     'status' => '1',
-                     'income' => $rate,
-                 ]);
-             if ($conftrade) {
-                 echo ('<br>update trade status et income done');
-             } else {
-                 echo ('<br>update status et income done');
-             }
+                ->update([
+                    'status' => '1',
+                    'income' => $rate,
+                ]);
+            if ($conftrade) {
+                echo ('<br>update trade status et income done');
+            } else {
+                echo ('<br>update status et income done');
+            }
 
-             $prof = $somme + $trrd->range_trade;
-             $tst = ($trrd->range_trade * $rate) / 100;
-             $profit = $prof + $tst;
+            $prof = $somme + $trrd->range_trade;
+            $tst = ($trrd->range_trade * $rate) / 100;
+            $profit = $prof + $tst;
 
-             $trd = DB::table('users')
-                 ->where('id', $id)
+            $trd = DB::table('users')
+                ->where('id', $id)
 
-                 ->update([
-                     'somme' => $profit,
-                     'daily_trade' => '1',
+                ->update([
+                    'somme' => $profit,
+                    'daily_trade' => '1',
 
-                 ]);
+                ]);
 
+            $conftrade2 = DB::table('trades')
+                ->where('id_client', $id)
+                ->latest()->first();
+            $conftrade3 = DB::table('trades')
+                ->where('id', $conftrade2->id)
+                ->update(['profit' => $tst]);
 
-             $conftrade2 = DB::table('trades')
-                 ->where('id_client', $id)
-                 ->latest()->first();
-                 $conftrade3 = DB::table('trades')
-                 ->where('id', $conftrade2->id)
-                 ->update(['profit' => $tst]);
+            // if ($trd) {
+            //     echo ('<br>client somme done');
+            // } else {
+            //     echo ('<br>client somme not done yet');
+            // }
+        }
 
-             // if ($trd) {
-             //     echo ('<br>client somme done');
-             // } else {
-             //     echo ('<br>client somme not done yet');
-             // }
-         }
-
-         // DD($data);
-     }
+        // DD($data);
+    }
     public function crypto()
     {
         $client = new Client();
-        $response = $client->get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false');
+        $response = $client->get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=80&page=1&sparkline=false');
         $currencies = json_decode($response->getBody());
         $currencies = collect(json_decode($response->getBody()));
 
@@ -120,7 +119,10 @@ class HomeController extends Controller
         ]);
         $prf = Auth::User();
         $lasttrade = $this->getLastTrade($prf->id);
-        return view('market', ['cry' => $paginatedData, 'prf' => $prf, 'lasttrade' => $lasttrade]);
+        $msg = DB::table('messages')
+            ->where('id_user', $prf->id)
+            ->get();
+        return view('market', ['cry' => $paginatedData, 'prf' => $prf, 'lasttrade' => $lasttrade, 'msg' => $msg]);
     }
     public function index()
     {
@@ -140,6 +142,7 @@ class HomeController extends Controller
                 ]);
 
         }
+        //renvoi un message au user confirm/no confirm
         if ($action == 'reject') {
             $x = DB::table('users')
                 ->where('id', $user_id)
@@ -147,7 +150,6 @@ class HomeController extends Controller
                     'status' => '0',
 
                 ]);
-
 
         }
         if ($x) {
@@ -195,28 +197,28 @@ class HomeController extends Controller
 
         if ($action == 'withdraw') {
             $x1 = DB::table('users')
-            ->where('id', $user_id)
-            ->get()->first();
-        $x = DB::table('users')
-            ->where('id', $user_id)
-            ->update([
-                'daily_trade' => '1',
-                'somme' => $x1->somme - $amount,
-            ]);
-        $y = DB::table('transactions')
-            ->where('id', $id)
-            ->update([
-                'status' => '1',
+                ->where('id', $user_id)
+                ->get()->first();
+            $x = DB::table('users')
+                ->where('id', $user_id)
+                ->update([
+                    'daily_trade' => '1',
+                    'somme' => $x1->somme - $amount,
+                ]);
+            $y = DB::table('transactions')
+                ->where('id', $id)
+                ->update([
+                    'status' => '1',
 
-            ]);
+                ]);
 
-        if ($x) {
+            if ($x) {
 
-            return response()->json(['success' => true]);
-        } else {
-            return response()->json(['success' => false]);
+                return response()->json(['success' => true]);
+            } else {
+                return response()->json(['success' => false]);
 
-        }
+            }
         }
 
     }
@@ -231,7 +233,7 @@ class HomeController extends Controller
     public function adddminverif()
     {
         $data = DB::table('users')->where('status', '2')->get();
-         //DD($data);
+        //DD($data);
 
         return view('adddminverif', compact('data'));
 
@@ -240,10 +242,10 @@ class HomeController extends Controller
     {
         $prf = Auth::User();
         $lasttrade = $this->getLastTrade($prf->id);
-        $msg=DB::table('messages')
-        ->where('id_user', $prf->id)
-        ->get();
-        return view('trade', compact('prf', 'lasttrade','msg'));
+        $msg = DB::table('messages')
+            ->where('id_user', $prf->id)
+            ->get();
+        return view('trade', compact('prf', 'lasttrade', 'msg'));
     }
 
     public function conftrade(Request $request)
@@ -264,12 +266,13 @@ class HomeController extends Controller
                     ->back()
                     ->with('failed', 'Wrong password');
             }
-            $nbr= DB::table('transactions')->where('id_user', $prf->id)->where('status','0')->where('type','0')->count();
-            if ($nbr>0) {
+            $nbr = DB::table('transactions')->where('id_user', $prf->id)->where('status', '0')->where('type', '0')->count();
+            if ($nbr > 0) {
                 return redirect()
                     ->back()
                     ->with('failed', 'you have a withdraw in waiting, you cant set a trade for the moment');
             }
+            //copy any if() here to add any condition
 
             $tradeamount = ($prf->somme * $request['range']) / 100;
             if ($tradeamount > '99.9') {
@@ -337,8 +340,8 @@ class HomeController extends Controller
         }
     }
     public function withdraw(Request $request)
-    {   $prf = Auth::User();
-        $nbr= DB::table('transactions')->where('id_user', $prf->id)->where('status','0')->count();
+    {$prf = Auth::User();
+        $nbr = DB::table('transactions')->where('id_user', $prf->id)->where('status', '0')->count();
 
         $validatedData = $request->validate([
             'amount' => 'required |numeric',
@@ -351,20 +354,20 @@ class HomeController extends Controller
                 ->back()
                 ->with('failed', 'Wrong password');
         }
-        if ( $prf->status =='0') {
+        if ($prf->status == '0' || $prf->status == '2') {
             return redirect()
                 ->back()
                 ->with('failed', 'You must verify your account before withdrawing');
 
         }
 
-        if ( $request->amount < 50) {
+        if ($request->amount < 50) {
             return redirect()
                 ->back()
                 ->with('failed', 'minimum 50$');
 
         }
-        if ( $request->amount > 2600) {
+        if ($request->amount > 2600) {
             return redirect()
                 ->back()
                 ->with('failed', 'maximum 2599$');
@@ -376,7 +379,7 @@ class HomeController extends Controller
                 ->with('failed', 'insuffisant');
 
         }
-        if ($nbr!=1) {
+        if ($nbr != 1) {
             return redirect()
                 ->back()
                 ->with('failed', 'an old withdraw transaction is in waiting, you cant add another withdraw for the moment');
@@ -411,11 +414,11 @@ class HomeController extends Controller
         $data = DB::table('trades')
             ->where('id_client', $prf->id)
             ->get();
-            $msg=DB::table('messages')
+        $msg = DB::table('messages')
             ->where('id_user', $prf->id)
             ->get();
-            $lasttrade = $this->getLastTrade($prf->id);
-        return view('terms',compact('data', 'prf', 'lasttrade','msg'));
+        $lasttrade = $this->getLastTrade($prf->id);
+        return view('terms', compact('data', 'prf', 'lasttrade', 'msg'));
     }
     public function aboutus()
     {
@@ -423,11 +426,11 @@ class HomeController extends Controller
         $data = DB::table('trades')
             ->where('id_client', $prf->id)
             ->get();
-            $lasttrade = $this->getLastTrade($prf->id);
-            $msg=DB::table('messages')
+        $lasttrade = $this->getLastTrade($prf->id);
+        $msg = DB::table('messages')
             ->where('id_user', $prf->id)
             ->get();
-        return view('aboutus',compact('data', 'prf', 'lasttrade','msg'));
+        return view('aboutus', compact('data', 'prf', 'lasttrade', 'msg'));
     }
 
     public function tradeshist()
@@ -436,24 +439,24 @@ class HomeController extends Controller
         $data = DB::table('trades')
             ->where('id_client', $prf->id)
             ->get();
-            $msg=DB::table('messages')
+        $msg = DB::table('messages')
             ->where('id_user', $prf->id)
             ->get();
         $lasttrade = $this->getLastTrade($prf->id);
 
-        return view('tradeshist', compact('data', 'prf', 'lasttrade','msg'));
+        return view('tradeshist', compact('data', 'prf', 'lasttrade', 'msg'));
     }
 
     public function funds()
     {
         // $app
         $prf = Auth::User();
-        $msg=DB::table('messages')
-        ->where('id_user', $prf->id)
-        ->get();
+        $msg = DB::table('messages')
+            ->where('id_user', $prf->id)
+            ->get();
         $hist = DB::table('transactions')->where('id_user', $prf->id)->get();
         $lasttrade = $this->getLastTrade($prf->id);
-        return view('funds', compact('prf', 'hist', 'lasttrade','msg'));
+        return view('funds', compact('prf', 'hist', 'lasttrade', 'msg'));
     }
     public function adddminmessages()
     {
@@ -461,20 +464,23 @@ class HomeController extends Controller
     }
     public function addmsg(Request $request)
     {
+        $validatedData = $request->validate([
+            'iduser' => 'required|integer',
+            'message' => 'required|string|max:255',
+        ]);
         // DD($request);
-            $newMessage = new Message;
-            $newMessage->id_user = $request->iduser;
-            $newMessage->message = $request->message;
+        $newMessage = new Message;
+        $newMessage->id_user = $request->iduser;
+        $newMessage->message = $request->message;
 
-            $newMessage->save();
+        $newMessage->save();
 
-            return view('adddminmessages');
+        return view('adddminmessages');
 
     }
 
     public function profile()
     {
-
 
         $prf = Auth::User();
         $data = DB::table('messages')
@@ -486,10 +492,11 @@ class HomeController extends Controller
 
         $count = $data->count();
         $lasttrade = $this->getLastTrade($prf->id);
-        $msg=DB::table('messages')
-        ->where('id_user', $prf->id)
-        ->get();
-        return view('profile', compact('data', 'count', 'prf', 'invited', 'lasttrade','msg'));
+        $msg = DB::table('messages')
+            ->where('id_user', $prf->id)
+            ->get();
+
+        return view('profile', compact('data', 'count', 'prf', 'invited', 'lasttrade', 'msg'));
     }
 
     public function verify(Request $request)
@@ -498,6 +505,7 @@ class HomeController extends Controller
         //     'wallet' => 'required|string',
         //     'file' => 'required|image|size:2048|mimes:jpg,jpeg,png'
         // ]);
+
         $validator = Validator::make($request->all(), [
             'wallet' => 'required|string',
             'file' => 'required|image|max:2048|mimes:jpg,jpeg,png',

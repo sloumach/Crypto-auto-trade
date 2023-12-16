@@ -48,39 +48,41 @@
 <p>Each recharge or withdrawal action may take between 24 and 72 hours to process. We make every effort to process transactions as quickly as possible, but delays may occur due to technical issues or security checks.</p>
 
 <h4>Account Verification:</h4>
-<p>Withdrawal actions require that the user's account status is 'verified'. Users who are not verified can only perform recharges.</p>
+<p>Withdrawal actions require the user's account status to be 'verified'. Users who have not been verified are only allowed to perform recharges.</p>
 <p>Once a user is verified, they can only update their password. Please ensure that you modify any other information before verifying your account.</p>
-<p>To verify your account, you must provide your wallet address accurately, upload your passport in the 'verification' window on your profile page, and wait for approval by the administration, which takes less than 24 hours.</p>
-<p>To complete verification, you must invite a friend to join our platform, and that friend must only submit their ID. This is to ensure that the person who invited them is also verified.</p>
+<p>To verify your account, you need to accurately provide your wallet address, upload your passport in the 'verification' section on your profile page, and await approval from the administration, a process that typically takes less than 24 hours.</p>
+<p>To complete the verification process, you are required to invite a friend to join our platform. Your friend needs to submit their ID for verification. This step ensures that the person who extended the invitation is also verified.</p>
 
 <h4>Database Backup:</h4>
-<p>Our databases are backed up every 24 hours at 01:00 UTC. This process takes 30 minutes, and the website may be temporarily down during this time. Please do not be alarmed if this happens.</p>
+<p>Our databases are backed up every 24 hours at 01:00 UTC. This process takes approximately 30 minutes, and there might be a temporary disruption of the website during this period. Kindly note that this is a normal occurrence and there is no need for concern if this happens.</p>
 
 <h4>Password Security:</h4>
-<p>Our website will always prompt you for your password for important actions. Never share your password with any third party.</p>
+<p>Our website will consistently prompt you to enter your password for critical actions. Please refrain from sharing your password with any third party.</p>
 
 <h4>Loss Guarantee:</h4>
 <p>Our bot guarantees that any losses will not be more than 3% in cases such as war, market downturns, or USDT coin no longer being accepted by major markets such as Binance.com and MarketCoinCap.com.</p>
 
 <h4>Recharge and Withdrawal:</h4>
-<p>Before verifying your account, please ensure that you provide your wallet address accurately.</p>
-<p>When recharging, please ensure that you enter the correct 'amount' and 'txid' information. The website will ban any account with fraudulent actions or users who attempt to recharge or withdraw funds from another user's account.</p>
-<p>Every action is logged, and you can review your trading, recharge, and withdrawal history at any time.</p>
+<p>Prior to proceeding with account verification, it is imperative to accurately input your wallet address.
+
+Furthermore, exercise utmost diligence when performing recharges, ensuring accurate entries for both the 'amount' and 'txid' fields. Any account found engaging in fraudulent activities, such as attempting to recharge or withdraw funds from another user's account, will be subject to immediate suspension.
+
+Rest assured, all activities are meticulously logged, granting you the ability to access and review your trading, recharge, and withdrawal history whenever you desire.</p>
 
 <h4>Market Window:</h4>
-<p>Our market window refreshes every 5 minutes.</p>
+<p>Our market window refreshes every 5-10 minutes.</p>
 
 <h4>Identification Requirements:</h4>
-<p>The identification used for verification must match the country of the account. The only form of identification accepted is a passport. Any other form of identification will be automatically rejected, and the passport must be valid (expired passports will be rejected).</p>
+<p>For the purpose of verification, it is crucial that the identification you provide corresponds to the country associated with your account. Only a valid passport will be accepted as a form of identification. Any alternative forms of identification will be automatically declined. Additionally, it is important to note that the submitted passport must be currently valid, as expired passports will not be accepted.</p>
 
 <h4>Transaction Limits:</h4>
 <p>The maximum amount for recharges and withdrawals is $1000 per day.</p>
 <p>The minimum amount for recharges and withdrawals is $50.</p>
 
 <h4>Inactive Accounts:</h4>
-<p>Accounts that have been inactive for more than 1 month will automatically withdraw their funds and close their accounts.</p>
+<p>Accounts that remain inactive for a period exceeding one month will undergo an automatic withdrawal of their funds, followed by the closure of the account.</p>
 
-<p>Please read these terms and policies carefully before using our platform. By using our platform, you acknowledge that you have read and agreed to these terms and policies. If you have any questions or concerns, please contact our customer support.</p>
+<p>We strongly emphasize the necessity of thoroughly reviewing and comprehending the contents of these terms and policies prior to engaging with our platform. Your utilization of our platform signifies your explicit acknowledgment and acceptance of these terms and policies. Should any inquiries or apprehensions arise, we encourage you to promptly communicate with our dedicated customer support team. Your proactive engagement with our platform implies your unwavering commitment to abiding by these terms and policies.</p>
                                 </div>
 
 
@@ -99,12 +101,7 @@
             <!--**********************************
                 Footer start
             ***********************************-->
-            <div class="footer">
-                <div class="copyright">
-                    <p>Copyright © Designed &amp; Developed by <a href="#" target="_blank">Quixkit</a> 2019</p>
-                    <p>Distributed by <a href="https://themewagon.com/" target="_blank">Themewagon</a></p>
-                </div>
-            </div>
+            @include('footer')
             <!--**********************************
                 Footer end
             ***********************************-->

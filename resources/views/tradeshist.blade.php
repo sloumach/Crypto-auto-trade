@@ -48,7 +48,7 @@
                                             <tbody class="text-white">
                                                 @foreach ($data as $item)
                                                     @if ($item->status == '1')
-                                                    <tr class="text-center bg-success">
+                                                    <tr class="text-center bg-success opacity-50">
                                                     @else
                                                     <tr class="text-center bg-warning">
                                                     @endif
@@ -105,12 +105,7 @@
                 <!--**********************************
                 Footer start
             ***********************************-->
-                <div class="footer">
-                    <div class="copyright">
-                        <p>Copyright © Designed &amp; Developed by <a href="#" target="_blank">Quixkit</a> 2019</p>
-                        <p>Distributed by <a href="https://themewagon.com/" target="_blank">Themewagon</a></p>
-                    </div>
-                </div>
+            @include('footer')
                 <!--**********************************
                 Footer end
             ***********************************-->

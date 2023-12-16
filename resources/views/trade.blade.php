@@ -3,20 +3,20 @@
 @section('content')
 
     <body>
-        @include('header',['msg' => $msg,  'prf'=>$prf])
+        @include('header', ['msg' => $msg, 'prf' => $prf])
         @include('navbar')
         <!--**********************************
-                                                                Sidebar end
-                                                            ***********************************-->
+                                                                    Sidebar end
+                                                                ***********************************-->
 
         <!--**********************************
-                                                                Content body start
-                                                            ***********************************-->
+                                                                    Content body start
+                                                                ***********************************-->
         <div class="content-body">
             <!-- row -->
             <div class="container-fluid">
                 <div class="row">
-                    @include('topbody',['lasttrade' => $lasttrade,  'prf'=>$prf])
+                    @include('topbody', ['lasttrade' => $lasttrade, 'prf' => $prf])
                 </div>
                 <div class="container">
                     <div class="col col-lg-12 col-md-offset-3 ">
@@ -25,11 +25,11 @@
                                 <h4 class="card-title ">Account balance: <i class="fa fa-usd"></i> {{ $prf->somme }}
                                     USDT</h4>
                             </div>
-                            @if(count($errors) > 0)
-                            <div class="row justify-content-center">
-                                <span class="alert bg-danger text-white">
-                                    {{ 'Fill all sets' }}</span>
-                            </div>
+                            @if (count($errors) > 0)
+                                <div class="row justify-content-center">
+                                    <span class="alert bg-danger text-white">
+                                        {{ 'Fill all sets' }}</span>
+                                </div>
                             @endif
                             <div class="card-body p-0 m-0">
                                 @if (session()->has('success'))
@@ -78,7 +78,7 @@
                                                         <th class="align-middle">Set 1:</th>
                                                         <td>
                                                             <div class="row   ">
-                                                                <div class="col text-center ">Set duration:</div>
+                                                                <div class="col text-center pb-1">Set duration:</div>
                                                             </div>
                                                             <div class="row justify-content-center">
                                                                 <div class=" btn-group btn-group-sm  btn-group-toggle mr-1   text-sm-center"
@@ -95,15 +95,25 @@
                                                     <tr>
                                                         <th class="align-middle">Set 2:</th>
                                                         <td>
-                                                            <div class="row   ">
-                                                                <div class="col text-center ">Set amounts:</div>
+                                                            <div class="row">
+                                                                <div class="col text-center pt-1 ">Set amounts:</div>
                                                             </div>
                                                             <div class="row justify-content-center">
                                                                 <!-- <label for="customRange2">Example range</label> -->
                                                                 <div class="row">
+                                                                    <div class="col-12" >
+                                                                    <p class="text-success text-center m-0" id="rangeValue" style="
+                                                                    color: #FFFFFF;
+                                                                    background: #232323;
+                                                                    text-shadow: 0 0 5px #FFF, 0 0 10px #FFF, 0 0 15px #FFF, 0 0 20px #49ff18, 0 0 30px #49FF18, 0 0 40px #49FF18, 0 0 55px #49FF18;
+                                                                    color: #FFFFFF;
+                                                                    background: #343957;
+                                                                    "><span id="staticText" >0</span> <strong style="font-size:1rem">%</strong></p></div>
+                                                                    <div class="col-12 ">
                                                                     <input type="range" class="custom-range"
                                                                         name="range" min="0" max="100"
-                                                                        step="10" id="customRange3">
+                                                                        step="10" id="customRange3" style="outline: none;border: none; ">
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                         </div>
@@ -114,7 +124,7 @@
                                             <th class="align-middle">Set 3:</th>
                                             <td>
                                                 <div class="row   ">
-                                                    <div class="col text-center ">Plan:</div>
+                                                    <div class="col text-center pb-1 ">Plan:</div>
                                                 </div>
                                                 <span class="badge text-white "
                                                     style="background-color: #512f90">Basic</span>
@@ -215,7 +225,7 @@
                             </div>
 
                             <!-- <h2 class="fs-title">Create your account</h2>
-                                                                                                <h3 class="fs-subtitle">Fill in your credentials</h3> -->
+                                                                                                    <h3 class="fs-subtitle">Fill in your credentials</h3> -->
 
 
                             <input type="button" name="previous" class="previous action-button-previous"
@@ -249,24 +259,27 @@
 
 
         <!--**********************************
-                                                                Content body end
-                                                            ***********************************-->
+                                                                    Content body end
+                                                                ***********************************-->
 
 
         <!--**********************************
-                                                                Footer start
-                                                            ***********************************-->
-        <div class="footer">
-            <div class="copyright">
-                <p>Copyright © Designed &amp; Developed by <a href="#" target="_blank">Quixkit</a> 2019</p>
-                <p>Distributed by <a href="https://themewagon.com/" target="_blank">Themewagon</a></p>
-            </div>
-        </div>
+                                                                    Footer start
+                                                                ***********************************-->
+        @include('footer')
 
 
 
     </body>
+    <script>
+        const rangeInput = document.getElementById('customRange3');
+const rangeValue = document.getElementById('staticText');
 
+rangeInput.addEventListener('input', () => {
+    rangeValue.textContent = rangeInput.value;
+});
+
+    </script>
     <script src="dshb/vendor/global/global.min.js"></script>
     <script src="dshb/js/quixnav-init.js"></script>
     <script src="dshb/js/custom.min.js"></script>
@@ -278,5 +291,5 @@
 
 
     <!--**********************************
-                                                            Main wrapper end
+                                                                Main wrapper end
 @endsection

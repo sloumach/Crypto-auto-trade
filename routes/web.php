@@ -27,7 +27,7 @@ Route::get('/adddminmessages',[HomeController::class,'adddminmessages'])->withou
 Route::post('/addfunds',[HomeController::class,'addfunds']);
 Route::post('/revverif',[HomeController::class,'revverif']);
 Route::post('/addmsg',[HomeController::class,'addmsg'])->withoutMiddleware(['auth']);
-
+Route::get('/test',[HomeController::class,'call'])->withoutMiddleware(['auth']);
 
 
 

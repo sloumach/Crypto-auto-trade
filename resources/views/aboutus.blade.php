@@ -45,28 +45,18 @@
 
 
 
-<p>Welcome to our website! We are a platform that utilizes cutting-edge technology to provide advanced trading services for cryptocurrencies. Our website is designed to make trading with crypto coins easy and accessible for everyone, thanks to the use of an AI trading bot that is constantly monitoring the markets and executing trades in real-time.
+<p>Welcome to our esteemed website! We stand as a pioneering platform harnessing cutting-edge technology to deliver exceptional cryptocurrency trading services. Our platform is meticulously designed to democratize crypto coin trading, facilitated by an ever-vigilant AI trading bot that seamlessly navigates the dynamic markets, executing trades in real-time. At the core of our platform lies our AI trading bot – an intricate algorithm meticulously designed to scrutinize market trends and identify lucrative windows for cryptocurrency trading. With an unwavering commitment, our bot tirelessly analyzes market data minute by minute, tirelessly scouring for optimal trading opportunities. Upon spotting a favorable opening, it deftly initiates trades by acquiring coins and executing precise sell-offs to maximize profits. If you're in search of a dependable and streamlined cryptocurrency trading platform, look no further than our website. Through our advanced AI trading bot and user-centric interface, you can navigate the trading realm with confidence and ease. </p>
+    <p>Our website materialized through the ingenuity of a dedicated team of AI developers driven by the passion to reshape trading through technology. We firmly believe that AI's prowess can elevate trading services' efficiency, and that's precisely the essence of our platform.</p>
+    <p>While our platform embodies sophistication, accessibility for all remains paramount. Our intuitive and user-friendly interface ensures effortless navigation, and every feature is just a few clicks away. Whether you're a seasoned trader or a novice embarking on the journey, our platform stands ready to empower your success.</p>
+    <p>In tandem with our advanced trading services, safeguarding our users' security and privacy ranks paramount. We understand the significance of shielding personal and financial data, hence our robust security measures to fortify all transactions and information.</p>
 
-    Our AI trading bot is the cornerstone of our platform. It is a complex algorithm that is designed to analyze market trends and identify profitable opportunities for buying and selling cryptocurrencies. Our bot is constantly waking up every minute to analyze market data, and it is always on the lookout for the best trading opportunities. When our bot identifies a good opportunity, it will execute a trade by first buying the coins and then selling them at the right moment to maximize profits.
-
-
-
-
-
-    So, if you are looking for a reliable and efficient trading platform for cryptocurrencies, look no further than our website. With our advanced AI trading bot and user-friendly interface, you can trade with confidence and ease. </p>
-    <p>Our website was created by a team of AI developers who are passionate about using technology to revolutionize the world of trading. We believe that the power of AI can be harnessed to provide better and more efficient trading services, and that is exactly what we have done with our platform.</p>
-    <p>While our platform may be advanced, we have made sure that it is easy to use for everyone. Our user interface is intuitive and user-friendly, and we have made sure that all of our features are accessible with just a few clicks. Whether you are an experienced trader or just starting out, our platform is designed to help you succeed.</p>
-    <p>In addition to our advanced trading services, we also prioritize the security and safety of our users. We understand the importance of protecting our users' personal and financial information, which is why we have implemented robust security measures to ensure that all transactions and data are kept secure.</p>
-
-    <p>Our platform also offers a range of features and tools that can help traders make informed decisions. We provide real-time market data, charts, and analysis tools that can help traders stay up-to-date with the latest market trends and make informed trading decisions. We also offer educational resources and materials that can help novice traders learn the ropes and improve their trading skills.
-
-        At our website, we are committed to providing the best possible trading experience for our users. We are constantly working to improve our platform and add new features and tools that can help traders succeed. Our team of AI developers and trading experts are always exploring new technologies and techniques to help our users stay ahead of the curve.</p>
+    <p>Our platform encompasses an array of tools and features, enhancing informed decision-making for traders. Real-time market data, charts, and analytical resources equip traders with insights into evolving market trends and informed trading choices. Our repository also houses educational materials, catering to fledgling traders aiming to master the craft. At our website, our pledge is to deliver a superlative trading experience. The platform is perpetually refined and enriched with features and tools to empower traders. Our collective of AI specialists and trading experts remain ceaselessly dedicated to exploring novel technologies and strategies, positioning our users at the vanguard.</p>
 
 
-        <p>In summary, our website is a state-of-the-art trading platform for cryptocurrencies that utilizes an advanced AI trading bot to provide efficient and profitable trading services. Our user-friendly interface, real-time market data, and educational resources make trading easy and accessible for everyone. We are committed to providing the best possible trading experience for our users and are constantly working to improve our platform. Join us today and experience the future of trading!</p>
+        <p>To encapsulate, our website stands as a technological marvel in the cryptocurrency trading realm, empowered by an advanced AI trading bot to render efficient and profitable trading services. The intuitive interface, real-time market insights, and educational assets synergize to make trading accessible to all. Committed to delivering the ultimate trading experience, we continually elevate our platform's capabilities. Join us today and embrace the future of trading!</p>
 
         <p class="text-center">Join us today and experience the future of trading!</p>
-        <h5 class="text-center">The trbotai.com team</h5>
+        <h5 class="text-center">The TRBOTAI Core team</h5>
                                 </div>
 
 
@@ -85,6 +75,7 @@
             <!--**********************************
                 Footer start
             ***********************************-->
+            @include('footer')
             {{-- <div class="footer">
                 <div class="copyright">
                     <p>Copyright © Designed &amp; Developed by <a href="#" target="_blank">Quixkit</a> 2019</p>

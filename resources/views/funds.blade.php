@@ -153,7 +153,7 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <h5>Site wallet (USDT): Loremipsumdolorsitamet.</h5>
+                                        <h5>Note: use USDT -- TRC20 Blockchain.</h5>
                                         <form method="post" action="{{ url('/recharge') }}">
                                             @csrf
                                             <div class="form-group">
@@ -244,12 +244,7 @@
         <!--**********************************
                                 Footer start
                             ***********************************-->
-        <div class="footer">
-            <div class="copyright">
-                <p>Copyright © Designed &amp; Developed by <a href="#" target="_blank">Quixkit</a> 2019</p>
-                <p>Distributed by <a href="https://themewagon.com/" target="_blank">Themewagon</a></p>
-            </div>
-        </div>
+                            @include('footer')
         <!--**********************************
                                 Footer end
                             ***********************************-->
